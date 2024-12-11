@@ -22,14 +22,14 @@ with open('Notebook/pickle_scaler/y_scaler.pickle' , 'rb') as file:
 def app():
     st.title('Home')
 
-    institute = st.selectbox('Select institute : ' , institute_encoder.classes_)
-    quota = st.selectbox("Select Quota :" , ["AI"])
-    gender = st.selectbox('Select Gender : ' , gender_encoder.classes_ )
-    year = st.number_input("Enter Year :" , min_value=2016 , max_value=2026 )
-    program = st.selectbox('Select Program : ' , program_encoder.classes_)
-    seat = st.selectbox('Select Seat : ', seat_encoder.classes_)
-    pwd = st.selectbox('Select PWD :', pwd_encoder.classes_)
-    if st.button('Predict Rank'):
+    institute = st.selectbox('Select institute : ' , institute_encoder.classes_ , key="input1")
+    quota = st.selectbox("Select Quota :" , ["AI"] , key="input2" )
+    gender = st.selectbox('Select Gender : ' , gender_encoder.classes_ , key="input3" )
+    year = st.number_input("Enter Year :" , min_value=2016 , max_value=2026 , key="input4")
+    program = st.selectbox('Select Program : ' , program_encoder.classes_ , key="input5")
+    seat = st.selectbox('Select Seat : ', seat_encoder.classes_ , key="input6")
+    pwd = st.selectbox('Select PWD :', pwd_encoder.classes_ , key="input7")
+    if st.button('Predict Rank' , key="button1"):
         try :
             institute = institute_encoder.transform([institute])
             quota = 0
@@ -45,9 +45,7 @@ def app():
             model = load_model('Notebook/model/ann_model.keras')
             output = model.predict(input)
             output = y_scaler.inverse_transform(output)
-            st.success("Opening Rank is " + str(output[0][0]))
-            st.success("Closing Rank is " + str(output[0][1]))
+            st.success("Opening Rank is " + str(output[0][0]) , key="output1")
+            st.success("Closing Rank is " + str(output[0][1]) , key="output1")
         except Exception as e:
-            st.warning(e)
-
-app()
+            st.warning(e , key="warning1")
