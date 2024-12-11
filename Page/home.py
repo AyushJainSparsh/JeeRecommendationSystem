@@ -45,7 +45,7 @@ def app():
             model = load_model('Notebook/model/ann_model.keras')
             output = model.predict(input)
             output = y_scaler.inverse_transform(output)
-            st.success("Opening Rank is " + str(output[0][0]) , key="output1")
-            st.success("Closing Rank is " + str(output[0][1]) , key="output1")
+            st.success("Opening Rank is " + str(output[0][0]) )
+            st.success("Closing Rank is " + str(output[0][1]) )
         except Exception as e:
-            st.warning(e , key="warning1")
+            st.warning(e)
